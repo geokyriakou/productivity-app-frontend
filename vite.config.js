@@ -12,6 +12,7 @@ export default defineConfig({
         "@mui/material",
         "@mui/material/styles",
         "@mui/material/ButtonBase",
+        "@mui/x-date-pickers",
       ],
     },
   },
