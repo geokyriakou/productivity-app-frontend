@@ -2,7 +2,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { AuthContext } from "./AuthContext";
 import { SocketContext } from "./SocketContext";
-const API_URL = "http://localhost:5000/api/rooms/";
+const API_URL = "https://productivity-app-service.onrender.com/api/rooms/";
 
 export const PomodoroContext = createContext(null);
 

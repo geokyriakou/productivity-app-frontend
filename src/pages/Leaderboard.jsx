@@ -9,7 +9,8 @@ import {
 } from "@mui/material";
 import axios from "axios";
 import { AuthContext } from "../context/AuthContext";
-const API_URL = "http://localhost:5000/api/leaderboard/";
+const API_URL =
+  "https://productivity-app-service.onrender.com/api/leaderboard/";
 
 export function Leaderboard() {
   const [expanded, setExpanded] = useState(false);
