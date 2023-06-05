@@ -1,0 +1,35 @@
+@media (max-width: 59em) {
+  .pages-root {
+    grid-template-columns: 0 1fr;
+    position: relative;
+  }
+
+  .sidebar {
+    z-index: 999;
+    /* display: block; */
+    position: absolute;
+    width: 18.8rem;
+    background-color: var(--white);
+    height: 100vh;
+  }
+
+  .sidebar-closed {
+    display: none;
+  }
+
+  .nav-btn {
+    display: block;
+    z-index: 1000;
+    margin: 1rem;
+  }
+
+  .fc .fc-toolbar.fc-header-toolbar {
+    margin-bottom: 1.5em;
+    margin-left: 2.5rem;
+  }
+
+  .topbar {
+    position: static;
+    padding-left: 3rem;
+  }
+}
