@@ -8,9 +8,7 @@ export default defineConfig({
   plugins: [svgr(), react(), pluginRewriteAll()],
   build: {
     rollupOptions: {
-      external: [
-        "@mui/material", // ignore react stuff
-      ],
+      external: ["@mui/material", "@mui/material/styles"],
     },
   },
 });
