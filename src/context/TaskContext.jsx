@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { AuthContext } from "./AuthContext";
 
-const API_URL = "https://productivity-app-service.onrender.com/api/tasks/";
+const API_URL = "http://localhost:5000/api/tasks/";
 
 export const TaskContext = createContext(null);
 

@@ -81,11 +81,7 @@ function CustomLink({ to, children, ...props }) {
             createRoom();
           }
 
-          getRoom();
-
           if (location.pathname === "/pomo" && to !== "/pomo") {
-            socket.emit("disconnect-user", room?._id);
-
             updateUser({
               focusTime: (pomosCount * 25) / 60,
             });

@@ -2,7 +2,7 @@ import { createContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
-const API_URL = "https://productivity-app-service.onrender.com/api/users/";
+const API_URL = "http://localhost:5000/api/users/";
 
 export const AuthContext = createContext(null);
 
@@ -22,7 +22,6 @@ export function AuthProvider({ children }) {
       });
 
     if (response.data) {
-      console.log("hi");
       navigate("/login");
       //   localStorage.setItem("user", JSON.stringify(response.data));
     }
@@ -91,6 +90,7 @@ export function AuthProvider({ children }) {
     setIsLoading(true);
     const response = await axios.get(API_URL + "me", config);
     if (response.data) {
+      console.log(response.data);
       setUserInfo(response.data);
       setIsLoading(false);
     }
@@ -114,17 +114,18 @@ export function AuthProvider({ children }) {
   };
 
   const updateUserScore = async () => {
-    // console.log(userData);
     const config = {
       headers: {
         Authorization: `Bearer ${user?.accessToken}`,
       },
     };
+
     const response = await axios.put(
       API_URL + user._id + "/score",
       { score: localScore },
       config
     );
+
     if (response.data) {
       setUserInfo(response.data);
       setlocalScore(0);

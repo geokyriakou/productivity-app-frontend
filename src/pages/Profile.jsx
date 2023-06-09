@@ -137,7 +137,7 @@ export function Profile() {
               <FontAwesomeIcon icon={edit ? faCheck : faEdit} />
             </IconButton>
             <div className="profile-pic">
-              {userInfo?.username.charAt(0).toUpperCase()}
+              {userInfo?.username?.charAt(0).toUpperCase()}
               <div />
             </div>
             {edit ? (
@@ -208,8 +208,8 @@ export function Profile() {
               <h3>Avg Focus</h3>
               <p>
                 {(
-                  userInfo?.focusTime.reduce((a, b) => a + b, 0) /
-                  userInfo?.focusTime.length
+                  userInfo?.focusTime?.reduce((a, b) => a + b, 0) /
+                  userInfo?.focusTime?.length
                 ).toFixed(1)}{" "}
                 h
               </p>

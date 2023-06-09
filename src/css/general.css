@@ -41,21 +41,6 @@
 
   --fc-event-bg-color: var(--primary);
   --fc-event-border-color: var(--primary);
-  /* --fc-event-text-color: #fff;
-  --fc-event-selected-overlay-color: rgba(0, 0, 0, 0.25);
-
-  --fc-more-link-bg-color: #d0d0d0;
-  --fc-more-link-text-color: inherit;
-
-  --fc-event-resizer-thickness: 8px;
-  --fc-event-resizer-dot-total-width: 8px;
-  --fc-event-resizer-dot-border-width: 1px;
-
-  --fc-non-business-color: rgba(215, 215, 215, 0.3);
-  --fc-bg-event-color: rgb(143, 223, 130);
-  --fc-bg-event-opacity: 0.3;
-  --fc-highlight-color: rgba(188, 232, 241, 0.3);
-  --fc-now-indicator-color: red; */
 }
 
 * {
@@ -67,64 +52,6 @@
 body {
   font-family: var(--ff-primary);
   font-weight: var(--fw-regular);
-}
-
-.header {
-  padding: 0 4.8rem;
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  height: 10vh;
-  background-color: var(--primary-vlight);
-  /* flex-direction: column; */
-}
-
-.main-nav-list {
-  list-style: none;
-  display: flex;
-  align-items: center;
-  gap: 3.2rem;
-}
-
-.main-nav-link {
-  text-decoration: none;
-  color: var(--black);
-  font-weight: var(--fw-semi-bold);
-}
-
-.nav-cta {
-  background-color: var(--primary-dark);
-  color: var(--white);
-  padding: 0.6rem;
-  border-radius: 9px;
-}
-
-.section-hero {
-  background-color: var(--primary-vlight);
-  height: 90vh;
-  overflow-y: auto;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 20%;
-}
-
-.hero-text {
-  /* display: inline-block; */
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-  width: 20rem;
-}
-
-.hero-img {
-  display: inline-block;
-}
-
-.cfa {
-  margin-left: 2rem;
-  background-color: var(--white);
-  color: var(--black);
 }
 
 h1 {
@@ -164,6 +91,15 @@ input {
   border-bottom: solid 0.1rem var(--medium-grey);
 }
 
+footer {
+  margin-top: 4rem;
+  border-top: solid 0.05rem var(--medium-grey);
+  padding: 3rem;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  justify-items: center;
+}
+
 .logo-4 {
   text-align: center;
   display: flex;
@@ -176,6 +112,8 @@ input {
   font-weight: 300;
   font-size: var(--fs-700);
   line-height: 0.65;
+
+  text-shadow: -2px 1px #1a252fa8;
   font-family: "Lobster", cursive;
 }
 
@@ -239,8 +177,6 @@ input {
   border-radius: 20px;
   top: 25vh;
   left: 50vw;
-  /* top: 50vh;
-  left: 50vh; */
 }
 
 .reset-form input {

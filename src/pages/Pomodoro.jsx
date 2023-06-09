@@ -14,7 +14,7 @@ import { SocketContext } from "../context/SocketContext";
 import { toast } from "react-toastify";
 
 export function Pomodoro() {
-  const { room, setRoom, isLoading, setPomosCount } =
+  const { room, setRoom, isLoading, setPomosCount, getRoom } =
     useContext(PomodoroContext);
   const { updateScore } = useContext(AuthContext);
   const [localScore, setlocalScore] = useState(0);
@@ -40,6 +40,9 @@ export function Pomodoro() {
   const [convo, setConvo] = useState([]);
 
   useEffect(() => {
+    getRoom();
+  }, []);
+  useEffect(() => {
     if (!room) return;
     setPomoState({
       workMins: room.focusMins,
@@ -63,11 +66,22 @@ export function Pomodoro() {
       setIsPlaying(isPlaying);
     });
 
+    socket.on("user-connected", (name) => {
+      setConvo((prevConvo) => [
+        { message: `${name} has joined the room`, user: "" },
+        ...prevConvo,
+      ]);
+
+      socket.emit("update-timer", secondsLeft, timerType, isPlaying);
+      getRoom();
+    });
+
     socket.on("user-disconnected", (name) => {
       setConvo((prevConvo) => [
         { message: `${name} has left the room`, user: "" },
         ...prevConvo,
       ]);
+      getRoom();
     });
 
     socket.on("receive-message", (message, name) => {
@@ -96,12 +110,28 @@ export function Pomodoro() {
       }
     });
 
+    socket.on("type-change", (type, seconds, name) => {
+      setConvo((prevConvo) => [
+        {
+          message: `${name} changed timer type to ${type}`,
+          user: "",
+        },
+        ...prevConvo,
+      ]);
+
+      setTimerType(type);
+      setSecondsLeft(seconds);
+      setIsPlaying(false);
+    });
+
     return () => {
       socket.off("new-isPlaying");
+      socket.off("user-connected");
       socket.off("timer");
       socket.off("user-disconnected");
       socket.off("receive-message");
       socket.off("changed-room");
+      socket.off("type-change");
     };
   }, [socket]);
 
@@ -164,20 +194,21 @@ export function Pomodoro() {
       }
     }
 
-    if (!socket) return;
-    if (!room) return;
-    socket.on("user-connected", (name) => {
-      setConvo((prevConvo) => [
-        { message: `${name} has joined the room`, user: "" },
-        ...prevConvo,
-      ]);
+    // if (!socket) return () => clearInterval(interval);
+    // if (!room) return () => clearInterval(interval);
+    // socket.on("user-connected", (name) => {
+    //   setConvo((prevConvo) => [
+    //     { message: `${name} has joined the room`, user: "" },
+    //     ...prevConvo,
+    //   ]);
 
-      socket.emit("update-timer", secondsLeft, timerType, isPlaying);
-    });
+    //   socket.emit("update-timer", secondsLeft, timerType, isPlaying);
+    //   getRoom();
+    // });
 
     return () => {
       clearInterval(interval);
-      socket.off("user-connected");
+      // socket.off("user-connected");
     };
   }, [isPlaying, secondsLeft, timerType]);
 
@@ -229,6 +260,12 @@ export function Pomodoro() {
                     setTimerType(type);
                     setSecondsLeft(renderSwitch(type));
                     setIsPlaying(false);
+                    socket.emit(
+                      "change-session",
+                      room?._id,
+                      type,
+                      renderSwitch(type)
+                    );
                   }}
                 >
                   {type === "work" && "Focus Time"}

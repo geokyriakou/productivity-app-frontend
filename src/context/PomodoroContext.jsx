@@ -2,7 +2,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { AuthContext } from "./AuthContext";
 import { SocketContext } from "./SocketContext";
-const API_URL = "https://productivity-app-service.onrender.com/api/rooms/";
+const API_URL = "http://localhost:5000/api/rooms/";
 
 export const PomodoroContext = createContext(null);
 
@@ -23,8 +23,8 @@ export function PomodoroProvider({ children }) {
     setIsLoading(true);
     const response = await axios.post(API_URL, "", config);
     if (response.data) {
-      setRoom(response.data);
       socket.emit("new-user", response.data._id, user.username);
+      setRoom(response.data);
       setIsLoading(false);
     }
     setPomosCount(0);
@@ -63,6 +63,7 @@ export function PomodoroProvider({ children }) {
       } else {
         setRoom(null);
       }
+      socket.emit("disconnect-user", room?._id);
     }
     return response.data;
   };
@@ -72,6 +73,7 @@ export function PomodoroProvider({ children }) {
     if (response.data) {
       // localStorage.setItem("room", []);
       setRoom(null);
+      socket.emit("disconnect-user", room?._id);
     }
     return response.data;
   };

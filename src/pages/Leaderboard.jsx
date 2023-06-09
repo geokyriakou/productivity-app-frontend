@@ -9,15 +9,14 @@ import {
 } from "@mui/material";
 import axios from "axios";
 import { AuthContext } from "../context/AuthContext";
-const API_URL =
-  "https://productivity-app-service.onrender.com/api/leaderboard/";
+const API_URL = "http://localhost:5000/api/leaderboard/";
 
 export function Leaderboard() {
   const [expanded, setExpanded] = useState(false);
   const [filter, setFilter] = useState("position");
   const [showCard, setShowCard] = useState(false);
   const [leaderboard, setLeaderboard] = useState();
-  const { activeUsers, getActiveUsers } = useContext(AuthContext);
+  const { activeUsers, getActiveUsers, userInfo } = useContext(AuthContext);
 
   const getLeaderboard = async () => {
     const response = await axios.get(API_URL);
@@ -76,7 +75,11 @@ export function Leaderboard() {
             )
             .map((user, index) => (
               <Accordion
-                sx={{ position: "relative" }}
+                sx={{
+                  position: "relative",
+                  backgroundColor:
+                    userInfo._id === user.user._id ? "#FEFFDB" : "",
+                }}
                 key={`panel${user.user._id}bh-header`}
                 expanded={expanded === `panel${user.user._id}`}
                 onChange={handleChangePanel(`panel${user.user._id}`)}
