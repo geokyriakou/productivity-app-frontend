@@ -3,7 +3,7 @@ import axios from "axios";
 import { AuthContext } from "./AuthContext";
 import { io } from "socket.io-client";
 
-// const socket = io("http://localhost:5000");
+// const socket = io("https://productivity-app-service.onrender.com");
 
 export const SocketContext = createContext(null);
 
@@ -13,7 +13,7 @@ export function SocketProvider({ children }) {
   const [socket, setSocket] = useState();
 
   useEffect(() => {
-    const newSocket = io("http://localhost:5000", {
+    const newSocket = io("https://productivity-app-service.onrender.com", {
       query: { username },
     });
     setSocket(newSocket);

@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
-const API_URL = "http://localhost:5000/api/users/";
+const API_URL = "https://productivity-app-service.onrender.com/api/users/";
 
 export function ConfirmEmail() {
   const navigate = useNavigate();

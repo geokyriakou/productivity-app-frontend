@@ -3,7 +3,7 @@ import { useRef } from "react";
 import { toast } from "react-toastify";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 
-const API_URL = "http://localhost:5000/api/users/";
+const API_URL = "https://productivity-app-service.onrender.com/api/users/";
 
 const resetPassword = async (userData, token) => {
   // move this to the authcontext for better code

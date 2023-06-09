@@ -2,7 +2,7 @@ import { createContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
-const API_URL = "http://localhost:5000/api/users/";
+const API_URL = "https://productivity-app-service.onrender.com/api/users/";
 
 export const AuthContext = createContext(null);
 
