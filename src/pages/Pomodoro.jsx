@@ -81,7 +81,6 @@ export function Pomodoro() {
         { message: `${name} has left the room`, user: "" },
         ...prevConvo,
       ]);
-      getRoom();
     });
 
     socket.on("receive-message", (message, name) => {
@@ -107,7 +106,6 @@ export function Pomodoro() {
       } else if (setting === "Long Break Interval") {
         setPomoState({ ...pomoState, longBreakInterval: value });
       }
-      getRoom();
     });
 
     socket.on("type-change", (type, seconds, name) => {

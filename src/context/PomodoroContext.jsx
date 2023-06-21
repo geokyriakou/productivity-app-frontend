@@ -37,6 +37,8 @@ export function PomodoroProvider({ children }) {
       const response = await axios.get(API_URL, config);
       if (response.data) {
         setRoom(response.data);
+        console.log("here");
+        console.log(room);
         setIsLoading(false);
       }
     } catch (error) {

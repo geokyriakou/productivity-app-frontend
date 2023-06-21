@@ -42,7 +42,11 @@ export default function Settings({ type }) {
                 autoChange: e.target.checked,
               });
 
-              updateRoom({ ...room, autoChange: e.target.checked }, "Auto Change", e.target.checked);
+              updateRoom(
+                { ...room, autoChange: e.target.checked },
+                "Auto Change",
+                e.target.checked
+              );
 
               // socket.emit(
               //   "settings-change",
@@ -103,7 +107,11 @@ export default function Settings({ type }) {
                 workMins: inputFocus,
               });
 
-              updateRoom({ ...room, focusMins: inputFocus }, "Focus Minutes", inputFocus);
+              updateRoom(
+                { ...room, focusMins: inputFocus },
+                "Focus Minutes",
+                inputFocus
+              );
               // socket.emit(
               //   "settings-change",
               //   room._id,
@@ -129,7 +137,11 @@ export default function Settings({ type }) {
                 ...settingsInfo.pomoState,
                 breakMins: inputBreak,
               });
-              updateRoom({ ...room, breakMins: inputBreak }, "Break Minutes", inputBreak);
+              updateRoom(
+                { ...room, breakMins: inputBreak },
+                "Break Minutes",
+                inputBreak
+              );
               // socket.emit(
               //   "settings-change",
               //   room._id,
@@ -157,7 +169,8 @@ export default function Settings({ type }) {
               });
               updateRoom(
                 { ...room, longBreakMins: inputLBreak },
-                "Long Break Minutes", inputLBreak
+                "Long Break Minutes",
+                inputLBreak
               );
               // socket.emit(
               //   "settings-change",
