@@ -96,17 +96,16 @@ export function Pomodoro() {
         },
         ...prevConvo,
       ]);
-      // getRoom();
       if (setting === "Auto Change") {
-        setRoom({ ...room, autoChange: value });
+        setPomoState({ ...pomoState, autoChange: value });
       } else if (setting === "Focus Minutes") {
-        setRoom({ ...room, focusMins: value });
+        setPomoState({ ...pomoState, focusMins: value });
       } else if (setting === "Break Minutes") {
-        setRoom({ ...room, breakMins: value });
+        setPomoState({ ...pomoState, breakMins: value });
       } else if (setting === "Long Break Minutes") {
-        setRoom({ ...room, longBreakMins: value });
+        setPomoState({ ...pomoState, longBreakMins: value });
       } else if (setting === "Long Break Interval") {
-        setRoom({ ...room, longBreakInterval: value });
+        setPomoState({ ...pomoState, longBreakInterval: value });
       }
       getRoom();
     });
