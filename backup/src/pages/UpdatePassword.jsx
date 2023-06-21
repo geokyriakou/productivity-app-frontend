@@ -33,7 +33,7 @@ export function UpdatePassword() {
   };
 
   return (
-    <main className="password-main">
+    <main>
       <form onSubmit={onSubmit} className="reset-form">
         <label htmlFor="password">New Password</label>
         <input

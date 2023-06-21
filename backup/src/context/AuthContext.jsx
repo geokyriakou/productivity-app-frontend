@@ -90,6 +90,7 @@ export function AuthProvider({ children }) {
     setIsLoading(true);
     const response = await axios.get(API_URL + "me", config);
     if (response.data) {
+      console.log(response.data);
       setUserInfo(response.data);
       setIsLoading(false);
     }

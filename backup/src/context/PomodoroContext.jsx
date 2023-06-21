@@ -48,10 +48,11 @@ export function PomodoroProvider({ children }) {
     if (!updateData.member1) {
       return { ...updateData, member1: updateData.member2, member2: null };
     }
+
     return updateData;
   };
 
-  const updateRoom = async (updateData, setting, value) => {
+  const updateRoom = async (updateData) => {
     const data = memberLeave(updateData);
     const response = await axios.put(API_URL + updateData._id, data, config);
     if (response.data) {
@@ -60,7 +61,6 @@ export function PomodoroProvider({ children }) {
         response.data.member2 === user._id
       ) {
         setRoom(response.data);
-        socket.emit("settings-change", room._id, setting, value);
       } else {
         setRoom(null);
       }
@@ -80,11 +80,7 @@ export function PomodoroProvider({ children }) {
   };
 
   useEffect(() => {
-    if (Array.isArray(room)) {
-      localStorage.setItem("room", JSON.stringify(room[0]));
-    } else {
-      localStorage.setItem("room", JSON.stringify(room));
-    }
+    localStorage.setItem("room", JSON.stringify(room));
     if (!room) {
       setIsLoading(true);
     }

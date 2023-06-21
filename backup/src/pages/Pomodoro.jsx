@@ -96,7 +96,7 @@ export function Pomodoro() {
         },
         ...prevConvo,
       ]);
-      // getRoom();
+
       if (setting === "Auto Change") {
         setRoom({ ...room, autoChange: value });
       } else if (setting === "Focus Minutes") {
@@ -108,7 +108,6 @@ export function Pomodoro() {
       } else if (setting === "Long Break Interval") {
         setRoom({ ...room, longBreakInterval: value });
       }
-      getRoom();
     });
 
     socket.on("type-change", (type, seconds, name) => {

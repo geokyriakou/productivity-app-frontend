@@ -42,14 +42,14 @@ export default function Settings({ type }) {
                 autoChange: e.target.checked,
               });
 
-              updateRoom({ ...room, autoChange: e.target.checked }, "Auto Change", e.target.checked);
+              updateRoom({ ...room, autoChange: e.target.checked });
 
-              // socket.emit(
-              //   "settings-change",
-              //   room?._id,
-              //   "Auto Change",
-              //   e.target.checked
-              // );
+              socket.emit(
+                "settings-change",
+                room?._id,
+                "Auto Change",
+                e.target.checked
+              );
             }}
             color="warning"
             inputProps={{ "aria-label": "controlled" }}
@@ -103,13 +103,13 @@ export default function Settings({ type }) {
                 workMins: inputFocus,
               });
 
-              updateRoom({ ...room, focusMins: inputFocus }, "Focus Minutes", inputFocus);
-              // socket.emit(
-              //   "settings-change",
-              //   room._id,
-              //   "Focus Minutes",
-              //   inputFocus
-              // );
+              updateRoom({ ...room, focusMins: inputFocus });
+              socket.emit(
+                "settings-change",
+                room._id,
+                "Focus Minutes",
+                inputFocus
+              );
             }}
             sx={{ width: "4rem" }}
             size="small"
@@ -129,13 +129,13 @@ export default function Settings({ type }) {
                 ...settingsInfo.pomoState,
                 breakMins: inputBreak,
               });
-              updateRoom({ ...room, breakMins: inputBreak }, "Break Minutes", inputBreak);
-              // socket.emit(
-              //   "settings-change",
-              //   room._id,
-              //   "Break Minutes",
-              //   inputBreak
-              // );
+              updateRoom({ ...room, breakMins: inputBreak });
+              socket.emit(
+                "settings-change",
+                room._id,
+                "Break Minutes",
+                inputBreak
+              );
             }}
             sx={{ width: "4rem" }}
             size="small"
@@ -155,16 +155,13 @@ export default function Settings({ type }) {
                 ...settingsInfo.pomoState,
                 longBreakMins: inputLBreak,
               });
-              updateRoom(
-                { ...room, longBreakMins: inputLBreak },
-                "Long Break Minutes", inputLBreak
+              updateRoom({ ...room, longBreakMins: inputLBreak });
+              socket.emit(
+                "settings-change",
+                room._id,
+                "Long Break Minutes",
+                inputLBreak
               );
-              // socket.emit(
-              //   "settings-change",
-              //   room._id,
-              //   "Long Break Minutes",
-              //   inputLBreak
-              // );
             }}
             sx={{ width: "4rem" }}
             size="small"
@@ -186,17 +183,13 @@ export default function Settings({ type }) {
                 ...settingsInfo.pomoState,
                 longBreakInterval: inputInterval,
               });
-              updateRoom(
-                { ...room, longBreakInterval: inputInterval },
+              updateRoom({ ...room, longBreakInterval: inputInterval });
+              socket.emit(
+                "settings-change",
+                room._id,
                 "Long Break Interval",
                 inputInterval
               );
-              // socket.emit(
-              //   "settings-change",
-              //   room._id,
-              //   "Long Break Interval",
-              //   inputInterval
-              // );
             }}
             sx={{ width: "4rem" }}
             size="small"

@@ -129,10 +129,7 @@ export function Home() {
             <h2>Pomodoro</h2>
             <p>
               We pair you up with an accountability partner based on your
-              profession and ratings and you focus. If available rooms exist,
-              and the member of each room has the same interest, we will find
-              the MSE closest neighbor in terms of score, focus time and days
-              streak.
+              profession and ratings and you focus.
             </p>
           </div>
         </section>

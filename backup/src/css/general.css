@@ -168,18 +168,15 @@ footer {
   color: var(--grey);
   cursor: pointer;
 }
-.password-main {
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
 
 .reset-form {
   width: 30rem;
+  position: fixed;
   background-color: var(--primary-light);
   padding: 4rem;
   border-radius: 20px;
+  top: 25vh;
+  left: 50vw;
 }
 
 .reset-form input {

@@ -82,6 +82,7 @@ function CustomLink({ to, children, ...props }) {
           }
 
           if (location.pathname === "/pomo" && to !== "/pomo") {
+            socket.emit("disconnect-user", room?._id);
             updateUser({
               focusTime: (pomosCount * 25) / 60,
             });
@@ -93,10 +94,8 @@ function CustomLink({ to, children, ...props }) {
             } else {
               if (room.member2 === user._id) {
                 updateRoom({ ...room, member2: null });
-                socket.emit("disconnect-user", room?._id);
               } else {
                 updateRoom({ ...room, member1: null });
-                socket.emit("disconnect-user", room?._id);
               }
             }
           }

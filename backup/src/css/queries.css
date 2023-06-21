@@ -32,31 +32,4 @@
     position: static;
     padding-left: 3rem;
   }
-
-  .area {
-    grid-template-columns: none;
-  }
-
-  .forma {
-    width: rem;
-    padding: 2rem;
-  }
-
-  .area.login {
-    grid-template-columns: none;
-  }
-  .register-text,
-  .login-text {
-    display: none;
-  }
-
-  .section-hero {
-    padding: 0;
-    overflow-x: hidden;
-    display: block;
-  }
-
-  .section-features {
-    grid-template-columns: none;
-  }
 }
