@@ -22,7 +22,6 @@ export function TaskProvider({ children }) {
 
   const getTasks = async () => {
     if (!user) {
-      // navigate("/login");
       return;
     }
     try {
@@ -54,17 +53,19 @@ export function TaskProvider({ children }) {
       updateData,
       config
     );
+    if (response.data) getTasks();
     return response.data;
   };
 
   const deleteTask = async (deleteId) => {
     const response = await axios.delete(API_URL + deleteId, config);
+    if (response.data) getTasks();
     return response.data;
   };
 
-  useEffect(() => {
-    getTasks();
-  }, [user]);
+  // useEffect(() => {
+  //   getTasks();
+  // }, [user]);
 
   return (
     <TaskContext.Provider
@@ -76,6 +77,7 @@ export function TaskProvider({ children }) {
         updateTask,
         deleteTask,
         newTask,
+        setNewTask,
       }}
     >
       {children}

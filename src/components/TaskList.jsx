@@ -2,9 +2,15 @@ import { useState } from "react";
 import { Task } from "./Task";
 import { useEffect } from "react";
 
-export function TaskList({ label, word, tasks, onChangeTask, onDeleteTask }) {
-  const [dragged, setDragged] = useState();
-
+export function TaskList({
+  label,
+  word,
+  tasks,
+  onChangeTask,
+  onDeleteTask,
+  dragged,
+  setDragged,
+}) {
   const handleDragStart = (e, todo) => {
     setDragged(todo);
   };
@@ -15,7 +21,6 @@ export function TaskList({ label, word, tasks, onChangeTask, onDeleteTask }) {
 
   const handleDrop = (e, type) => {
     e.preventDefault();
-
     onChangeTask({ ...dragged, label: type });
   };
 

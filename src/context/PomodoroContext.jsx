@@ -37,8 +37,6 @@ export function PomodoroProvider({ children }) {
       const response = await axios.get(API_URL, config);
       if (response.data) {
         setRoom(response.data);
-        console.log("here");
-        console.log(room);
         setIsLoading(false);
       }
     } catch (error) {
@@ -54,31 +52,41 @@ export function PomodoroProvider({ children }) {
   };
 
   const updateRoom = async (updateData, setting, value) => {
-    const data = memberLeave(updateData);
-    const response = await axios.put(API_URL + updateData._id, data, config);
-    if (response.data) {
-      if (
-        response.data.member1 === user._id ||
-        response.data.member2 === user._id
-      ) {
-        setRoom(response.data);
-        socket.emit("settings-change", room._id, setting, value);
-      } else {
-        setRoom(null);
+    const alone = await axios.get(API_URL, config);
+    if (alone.data.member2 === null) {
+      deleteRoom(room._id);
+    } else {
+      const data = memberLeave(updateData);
+      const response = await axios.put(API_URL + updateData._id, data, config);
+      if (response.data) {
+        if (
+          response.data.member1 === user._id ||
+          response.data.member2 === user._id
+        ) {
+          setRoom(response.data);
+          socket.emit("settings-change", room._id, setting, value);
+        } else {
+          setRoom(null);
+        }
+        // socket.emit("disconnect-user", room?._id);
       }
-      // socket.emit("disconnect-user", room?._id);
+      return response.data;
     }
-    return response.data;
   };
 
   const deleteRoom = async (deleteId) => {
-    const response = await axios.delete(API_URL + deleteId, config);
-    if (response.data) {
-      // localStorage.setItem("room", []);
-      setRoom(null);
-      socket.emit("disconnect-user", room?._id);
+    const alone = await axios.get(API_URL, config);
+    if (alone.data.member2 === null) {
+      const response = await axios.delete(API_URL + deleteId, config);
+      if (response.data) {
+        // localStorage.setItem("room", []);
+        setRoom(null);
+        socket.emit("disconnect-user", room?._id);
+      }
+      return response.data;
+    } else {
+      updateRoom({ ...room, member1: alone.data.member2, member2: null });
     }
-    return response.data;
   };
 
   useEffect(() => {

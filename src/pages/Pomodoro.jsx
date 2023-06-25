@@ -16,7 +16,7 @@ import { toast } from "react-toastify";
 export function Pomodoro() {
   const { room, setRoom, isLoading, setPomosCount, getRoom } =
     useContext(PomodoroContext);
-  const { updateScore } = useContext(AuthContext);
+  const { user, updateScore } = useContext(AuthContext);
   const [localScore, setlocalScore] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const [secondsLeft, setSecondsLeft] = useState(0.2 * 60);
@@ -39,9 +39,9 @@ export function Pomodoro() {
 
   const [convo, setConvo] = useState([]);
 
-  useEffect(() => {
-    getRoom();
-  }, []);
+  // useEffect(() => {
+  //   getRoom();
+  // }, []);
   useEffect(() => {
     if (!room) return;
     setPomoState({
@@ -66,21 +66,22 @@ export function Pomodoro() {
       setIsPlaying(isPlaying);
     });
 
-    socket.on("user-connected", (name) => {
-      setConvo((prevConvo) => [
-        { message: `${name} has joined the room`, user: "" },
-        ...prevConvo,
-      ]);
+    // socket.on("user-connected", (name) => {
+    //   setConvo((prevConvo) => [
+    //     { message: `${name} has joined the room`, user: "" },
+    //     ...prevConvo,
+    //   ]);
 
-      socket.emit("update-timer", secondsLeft, timerType, isPlaying);
-      getRoom();
-    });
+    //   socket.emit("update-timer", secondsLeft, timerType, isPlaying);
+    //   getRoom();
+    // });
 
     socket.on("user-disconnected", (name) => {
       setConvo((prevConvo) => [
         { message: `${name} has left the room`, user: "" },
         ...prevConvo,
       ]);
+      // getRoom();
     });
 
     socket.on("receive-message", (message, name) => {
@@ -124,7 +125,7 @@ export function Pomodoro() {
 
     return () => {
       socket.off("new-isPlaying");
-      socket.off("user-connected");
+      // socket.off("user-connected");
       socket.off("timer");
       socket.off("user-disconnected");
       socket.off("receive-message");
@@ -192,23 +193,23 @@ export function Pomodoro() {
       }
     }
 
-    // if (!socket) return () => clearInterval(interval);
-    // if (!room) return () => clearInterval(interval);
-    // socket.on("user-connected", (name) => {
-    //   setConvo((prevConvo) => [
-    //     { message: `${name} has joined the room`, user: "" },
-    //     ...prevConvo,
-    //   ]);
+    if (!socket) return () => clearInterval(interval);
+    if (!room) return () => clearInterval(interval);
+    socket.on("user-connected", (name) => {
+      setConvo((prevConvo) => [
+        { message: `${name} has joined the room`, user: "" },
+        ...prevConvo,
+      ]);
 
-    //   socket.emit("update-timer", secondsLeft, timerType, isPlaying);
-    //   getRoom();
-    // });
+      socket.emit("update-timer", secondsLeft, timerType, isPlaying);
+      getRoom();
+    });
 
     return () => {
       clearInterval(interval);
-      // socket.off("user-connected");
+      socket.off("user-connected");
     };
-  }, [isPlaying, secondsLeft, timerType]);
+  }, [isPlaying, secondsLeft, timerType, socket]);
 
   const minutes = Math.floor(secondsLeft / 60)
     .toString()

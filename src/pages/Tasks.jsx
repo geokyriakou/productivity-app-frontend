@@ -126,8 +126,16 @@ function Topbar({ word, setWord, onAddTask }) {
 }
 
 export function Tasks({ eisen }) {
-  const { createTask, updateTask, deleteTask, getTasks, newTask } =
-    useContext(TaskContext);
+  const [dragged, setDragged] = useState();
+  const {
+    createTask,
+    updateTask,
+    deleteTask,
+    getTasks,
+    newTask,
+    isLoading,
+    setNewTask,
+  } = useContext(TaskContext);
 
   const initialTasks = JSON.parse(localStorage.getItem("tasks"));
 
@@ -154,6 +162,7 @@ export function Tasks({ eisen }) {
       label: newTask.label,
       dueDate: newTask.dueDate,
     });
+    setNewTask(null);
   }, [newTask]);
 
   function handleChangeTask(task) {
@@ -179,12 +188,18 @@ export function Tasks({ eisen }) {
   return (
     <div className="pages-root">
       <Sidebar />
-      {/* {isLoading ? (
+
+      {isLoading && (
         <CircularProgress
-          style={{ position: "fixed", top: "50%", left: "50%" }}
+          style={{
+            position: "fixed",
+            top: "50%",
+            left: "50%",
+            zIndex: "100",
+            width: "5rem",
+          }}
         />
-      ) : (
-        <> */}
+      )}
       {eisen && (
         <Topbar word={word} setWord={setWord} onAddTask={handleAddTask} />
       )}
@@ -199,6 +214,8 @@ export function Tasks({ eisen }) {
             tasks={tasks}
             onChangeTask={handleChangeTask}
             onDeleteTask={handleDeleteTask}
+            dragged={dragged}
+            setDragged={setDragged}
           />
         </Card>
         <Card label="Decide Later">
@@ -208,6 +225,8 @@ export function Tasks({ eisen }) {
             tasks={tasks}
             onChangeTask={handleChangeTask}
             onDeleteTask={handleDeleteTask}
+            dragged={dragged}
+            setDragged={setDragged}
           />
         </Card>
         <Card label="Delegate">
@@ -217,6 +236,8 @@ export function Tasks({ eisen }) {
             tasks={tasks}
             onChangeTask={handleChangeTask}
             onDeleteTask={handleDeleteTask}
+            dragged={dragged}
+            setDragged={setDragged}
           />
         </Card>
         <Card label="Delete">
@@ -226,11 +247,11 @@ export function Tasks({ eisen }) {
             tasks={tasks}
             onChangeTask={handleChangeTask}
             onDeleteTask={handleDeleteTask}
+            dragged={dragged}
+            setDragged={setDragged}
           />
         </Card>
       </div>
-      {/* </>
-      )} */}
     </div>
   );
 }
@@ -238,23 +259,3 @@ export function Tasks({ eisen }) {
 export function PriorityMatrix() {
   return <Tasks eisen={true} />;
 }
-
-// const newTask = {
-//   id: crypto.randomUUID(),
-//   text: textRef.current.value,
-//   isDone: false,
-//   label: label,
-//   dueDate: dateRef.current.value,
-// };
-
-// const todos = [
-//   { id: 0, text: "Create my todo list", isDone: false, type: "Do Now" },
-//   { id: 1, text: "abracada", isDone: false, type: "Do Now" },
-//   { id: 2, text: "lolejsidbni", isDone: false, type: "Do Now" },
-//   { id: 3, text: "hhhhhhhhhhh", isDone: false, type: "Do Now" },
-//   { id: 4, text: "kkkkkkkk", isDone: true, type: "Delete" },
-//   { id: 5, text: "uuuuuu", isDone: false, type: "Decide Later" },
-//   { id: 6, text: "okfoek", isDone: false, type: "Decide Later" },
-//   { id: 7, text: "iiiiiiiiii", isDone: false, type: "Decide Later" },
-//   { id: 8, text: "hhhhhhhhhhh", isDone: false, type: "Delegate" },
-// ];
